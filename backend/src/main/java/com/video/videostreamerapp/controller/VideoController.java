@@ -1,6 +1,7 @@
 package com.video.videostreamerapp.controller;
 
 
+import com.video.videostreamerapp.dto.UploadVideoResponse;
 import com.video.videostreamerapp.dto.VideoDto;
 import com.video.videostreamerapp.model.Video;
 import com.video.videostreamerapp.service.FileService;
@@ -23,7 +24,7 @@ public class VideoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin
-    public String uploadVideo(@RequestParam("file") MultipartFile file) throws IOException {
+    public UploadVideoResponse uploadVideo(@RequestParam("file") MultipartFile file) throws IOException {
         System.out.println("Starting upload video....");
         return videoService.uploadVideo(file);
     }

@@ -1,5 +1,6 @@
 package com.video.videostreamerapp.service;
 
+import com.video.videostreamerapp.dto.UploadVideoResponse;
 import com.video.videostreamerapp.dto.VideoDto;
 import com.video.videostreamerapp.model.Video;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class VideoService {
     private final FirebaseService firebaseService;
     private final VideoRepository videoRepository;
 
-    public String uploadVideo(MultipartFile multipartFile) throws IOException {
+    public UploadVideoResponse uploadVideo(MultipartFile multipartFile) throws IOException {
         // Upload file to Firebase Bucket
         String videoUrl = firebaseService.uploadFile(multipartFile);
 
@@ -24,9 +25,9 @@ public class VideoService {
         var video = new Video();
         video.setVideoUrl(videoUrl);
 
-        videoRepository.save(video);
+        var savedVideo = videoRepository.save(video);
 
-        return "Successfully uploaded the video to firebase => " + videoUrl;
+        return new UploadVideoResponse(savedVideo.getId(), savedVideo.getVideoUrl());
     }
 
     public String uploadThumbnail(MultipartFile image, String videoId) throws IOException {
