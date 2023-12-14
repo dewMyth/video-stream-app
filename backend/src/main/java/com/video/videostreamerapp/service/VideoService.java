@@ -15,6 +15,7 @@ public class VideoService {
 
     private final FirebaseService firebaseService;
     private final VideoRepository videoRepository;
+
     public String uploadVideo(MultipartFile multipartFile) throws IOException {
         // Upload file to Firebase Bucket
         String videoUrl = firebaseService.uploadFile(multipartFile);
@@ -26,6 +27,20 @@ public class VideoService {
         videoRepository.save(video);
 
         return "Successfully uploaded the video to firebase => " + videoUrl;
+    }
+
+    public String uploadThumbnail(MultipartFile image, String videoId) throws IOException {
+        // Find the video by videoId
+        Video savedVideo = videoRepository.findById(videoId).orElseThrow(() -> new IllegalArgumentException(
+                "Cannot find video by id - " + videoId
+        ));
+
+        String thumbnailUrl = firebaseService.uploadFile(image);
+
+        savedVideo.setThumbnailUrl(thumbnailUrl);
+        videoRepository.save(savedVideo);
+
+        return "Successfully uploaded the video to firebase => " + savedVideo.getThumbnailUrl();
     }
 
     public Video editVideo(VideoDto videoDto) {
