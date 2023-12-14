@@ -1,6 +1,8 @@
 package com.video.videostreamerapp.controller;
 
 
+import com.video.videostreamerapp.dto.VideoDto;
+import com.video.videostreamerapp.model.Video;
 import com.video.videostreamerapp.service.FileService;
 import com.video.videostreamerapp.service.VideoService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,17 @@ public class VideoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadVideo(@RequestParam("file") MultipartFile file) throws IOException {
+    @CrossOrigin
+    public String uploadVideo(@RequestParam("file") MultipartFile file) throws IOException {
         System.out.println("Starting upload files....");
-        videoService.uploadVideo(file);
+        return videoService.uploadVideo(file);
     }
+
+    @PutMapping("edit")
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    public Video editVideo(@RequestBody VideoDto videoDto){
+        return videoService.editVideo(videoDto);
+    }
+
 }
