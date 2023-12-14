@@ -35,3 +35,10 @@ build/
 ###node_modules
 frontend/video-app/node_modules
 frontend/video-app/node
+
+### Uploaded Videos/Images
+*.mp4
+*.mkv
+*.png
+*.jpg
+*.jpeg
