@@ -7,6 +7,7 @@ import {
 import { UploadVideoService } from '../upload-video.service';
 import { UploadVideoResponse } from './UploadVideoResponse';
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-upload-video',
@@ -17,10 +18,12 @@ export class UploadVideoComponent {
   public files: NgxFileDropEntry[] = [];
   fileUploaded: boolean = false;
   fileEntry: FileSystemFileEntry | undefined;
+  public btnText = 'SELECT FILES';
 
   constructor(
     private _videoService: UploadVideoService,
-    private router: Router
+    private router: Router,
+    public dialogRef: MatDialogRef<UploadVideoComponent>
   ) {}
 
   public dropped(files: NgxFileDropEntry[]) {
@@ -66,6 +69,14 @@ export class UploadVideoComponent {
 
   public fileLeave(event: any) {
     console.log(event);
+  }
+
+  openSaveDetails() {
+    console.log('Test');
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   uploadVideo() {

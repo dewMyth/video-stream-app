@@ -1,36 +1,78 @@
-<div class="center">
-  <ngx-file-drop
-    dropZoneLabel="Drop files here"
-    (onFileDrop)="dropped($event)"
-    (onFileOver)="fileOver($event)"
-    (onFileLeave)="fileLeave($event)"
-  >
-    <ng-template
-      ngx-file-drop-content-tmp
-      let-openFileSelector="openFileSelector"
-    >
-      Drag and Drop Videos for this section (or) &nbsp;
-      <button type="button" (click)="openFileSelector()">Browse Files</button>
-    </ng-template>
-  </ngx-file-drop>
-  <div class="upload-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody class="upload-name-style">
-        <tr *ngFor="let item of files; let i = index">
-          <td>
-            <strong>{{ item.relativePath }}</strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="upload-video-modal">
+  <div class="header">
+    <div class="header-text">
+      <h3>Upload videos</h3>
+    </div>
+    <div class="header-close">
+      <div (click)="onNoClick()">
+        <mat-icon (click)="onNoClick()">close</mat-icon>
+      </div>
+    </div>
   </div>
+  <hr />
 
-  <button mat-button (click)="uploadVideo()" *ngIf="fileUploaded">
-    Upload Video
-  </button>
+  <div class="content">
+    <div class="img-container">
+      <img src="../../assets/upload.png" class="img" width="100px" alt="" />
+    </div>
+
+    <div class="content-text">
+      <h4>Drag and drop video files to upload</h4>
+      <h5>Your videos will be private until you publish them.</h5>
+    </div>
+
+    <ngx-file-drop
+      dropZoneLabel="Drop files here"
+      (onFileDrop)="dropped($event)"
+      (onFileOver)="fileOver($event)"
+      (onFileLeave)="fileLeave($event)"
+      dropZoneClassName="my-style"
+    >
+      <ng-template
+        ngx-file-drop-content-tmp
+        let-openFileSelector="openFileSelector"
+      >
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="openFileSelector()"
+        >
+          {{ btnText }}
+        </button>
+      </ng-template>
+    </ngx-file-drop>
+    <div class="upload-table">
+      <table class="table">
+        <thead></thead>
+        <tbody class="upload-name-style">
+          <tr *ngFor="let item of files; let i = index">
+            <td>
+              <strong>{{ item.relativePath }}</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="upload-btn">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="uploadVideo()"
+        *ngIf="fileUploaded"
+      >
+        Upload Video
+      </button>
+    </div>
+
+    <div class="policy">
+      <p>
+        By submitting your videos to YouTube, you acknowledge that you agree to
+        YouTube's Terms of Service and Community Guidelines. <br />
+        Please be sure not to violate others' copyright or privacy rights. Learn
+        more
+      </p>
+    </div>
+  </div>
 </div>

@@ -15,9 +15,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { SaveVideoDetailsComponent } from './save-video-details/save-video-details.component';
 @NgModule({
-  declarations: [AppComponent, UploadVideoComponent, HeaderComponent, SaveVideoDetailsComponent],
+  declarations: [
+    AppComponent,
+    UploadVideoComponent,
+    HeaderComponent,
+    SaveVideoDetailsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,6 +37,7 @@ import { SaveVideoDetailsComponent } from './save-video-details/save-video-detai
     MatIconModule,
     MatBadgeModule,
     MatInputModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
