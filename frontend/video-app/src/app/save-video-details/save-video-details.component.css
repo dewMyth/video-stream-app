@@ -1,0 +1,126 @@
+.header {
+    display: flex;
+}
+
+.header-text {
+    flex: 3;
+    align-self: center;
+}
+
+.header-close {
+    flex: 1;
+    text-align: right;
+    align-self: center;
+}
+
+.content{
+    display: flex;
+    overflow-y: auto;
+
+}
+
+.details{
+    flex: 2;
+    margin-right: 10px;
+}
+
+.video{
+    flex: 1;
+    padding-inline: 20px;
+}
+
+.details-form {
+    width: 100%
+}
+
+.title {
+    width: 100%;
+}
+
+.description {
+    width: 100%;
+}
+
+.thumbnail-row{
+    display: flex;
+    margin: 10px;
+}
+
+.upload-thumbnail{
+    width: 160px;
+    height: 90px;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.thumbnail-preview {
+    width: 210px;
+    height: 120px;
+    background-size: cover;
+    background-color: red;
+}
+.video-card{
+    margin-top: 85px;
+}
+
+.video-card-container{
+    height: 300px;
+}
+
+.card-top{
+    padding: 0px;
+    height: 150px;
+    background-color: #A9A9A9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-bottom{
+    margin-top: 10px;
+    padding-inline: 10px;
+}
+
+.video-link{
+    display: flex;
+    justify-content: space-between;
+    align-self: center !important;
+}
+
+.vl-text {
+    line-height: 10px;
+}
+
+.vl-cp-icon{
+    align-self: center;
+}
+
+
+.filename{
+    margin-top: 20px;
+}
+
+.chiplist{
+    width: 100%;
+}
+
+.footer {
+    flex-shrink: 0;
+    border-top: 1px solid #ddd;
+    display: flex;
+    padding-top: 10px;
+}
+
+.left{
+    flex: 10;
+}
+
+.right {
+    flex: 2;
+    align-self: center;
+    justify-content: right;
+    text-align: right;
+    padding-inline: 20px;
+}

@@ -1,1 +1,155 @@
-<p>save-video-details works!</p>
+<div class="save-video-details-modal">
+  <div class="header">
+    <div class="header-text">
+      <h3>{{ this.videoData.fileName }}</h3>
+      <!-- <h3>SAMPLE FILE</h3> -->
+    </div>
+    <div class="header-close">
+      <div (click)="onNoClick()">
+        <mat-icon (click)="onNoClick()">close</mat-icon>
+      </div>
+    </div>
+  </div>
+  <hr />
+
+  <div class="content">
+    <div class="details">
+      <h2>Details</h2>
+      <hr />
+      <form class="details-form" [formGroup]="videoDetailsForm">
+        <mat-form-field class="title" appearance="outline">
+          <mat-label>Title (required)</mat-label>
+          <input
+            matInput
+            placeholder="Ex:- My Video"
+            value="{{ this.videoData.fileName }}"
+            formControlName="title"
+          />
+        </mat-form-field>
+        <br />
+        <mat-form-field class="description" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            placeholder="Tell viewers about your video..."
+            rows="10"
+            formControlName="description"
+          ></textarea>
+        </mat-form-field>
+      </form>
+
+      <h3>Thumbnail</h3>
+      <div class="thumbnail-row">
+        <div class="upload-thumbnail" *ngIf="!fileUploaded">
+          <ngx-file-drop
+            dropZoneLabel="Drop files here"
+            (onFileDrop)="dropped($event)"
+            (onFileOver)="fileOver($event)"
+            (onFileLeave)="fileLeave($event)"
+            dropZoneClassName="thumbnail-drop-zone"
+          >
+            <ng-template
+              ngx-file-drop-content-tmp
+              let-openFileSelector="openFileSelector"
+            >
+              <mat-icon color="primary">add_photo_alternate</mat-icon>
+              <button mat-button color="primary" (click)="openFileSelector()">
+                {{ btnText }}
+              </button>
+            </ng-template>
+          </ngx-file-drop>
+        </div>
+        <div *ngIf="fileUploaded" style="width: 160px; height: 90px">
+          <img class="thumbnail-preview" src="{{ thumbnailUrl }}" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="video">
+      <div class="video-card">
+        <mat-card class="video-card-container" style="padding: 0">
+          <div class="card-top">
+            <p>Video is processing...</p>
+          </div>
+          <div class="card-bottom">
+            <div class="video-link">
+              <div class="vl-text">
+                <p style="font-size: 14px; color: grey">Video Link</p>
+                <a href="{{ this.videoData.shortUrl }}">{{
+                  this.videoData.shortUrl
+                }}</a>
+              </div>
+              <div class="vl-cp-icon">
+                <button mat-button style="border-radius: 20%">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </div>
+            </div>
+            <br />
+            <div class="filename">
+              <div class="vl-text">
+                <p style="font-size: 14px; color: grey">File Name</p>
+                <span> {{ this.videoData.fileName }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <br />
+
+        <div class="visibility">
+          <form [formGroup]="videoDetailsForm">
+            <mat-form-field appearance="outline" style="width: 100%">
+              <mat-label>Visibility</mat-label>
+              <mat-select formControlName="visibility">
+                <mat-option *ngFor="let status of statuses" [value]="status">
+                  {{ status }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
+        </div>
+
+        <br />
+        <div class="chiplist">
+          <form [formGroup]="videoDetailsForm">
+            <mat-form-field
+              class="example-chip-list"
+              appearance="outline"
+              style="width: 100%"
+            >
+              <mat-label>Tags</mat-label>
+              <mat-chip-list #chipList formControlName="tags">
+                <mat-chip
+                  *ngFor="let tag of tags"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="remove(tag)"
+                >
+                  {{ tag }}
+                  <button matChipRemove *ngIf="removable">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+                <input
+                  placeholder="New tag..."
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)"
+                />
+              </mat-chip-list>
+            </mat-form-field>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="left"></div>
+    <div class="right">
+      <button mat-raised-button color="primary" (click)="onSubmit()">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

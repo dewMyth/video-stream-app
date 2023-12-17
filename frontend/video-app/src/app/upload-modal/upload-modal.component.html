@@ -1,0 +1,8 @@
+<app-upload-video
+  *ngIf="!showSaveDetails"
+  (updateVariableEvent)="onUploadClick($event)"
+></app-upload-video>
+<app-save-video-details
+  *ngIf="showSaveDetails"
+  [videoData]="uploadedVideoData"
+></app-save-video-details>

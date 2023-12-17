@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   NgxFileDropEntry,
   FileSystemFileEntry,
@@ -19,6 +19,7 @@ export class UploadVideoComponent {
   fileUploaded: boolean = false;
   fileEntry: FileSystemFileEntry | undefined;
   public btnText = 'SELECT FILES';
+  fileName: string = '';
 
   constructor(
     private _videoService: UploadVideoService,
@@ -36,6 +37,7 @@ export class UploadVideoComponent {
         this.fileEntry.file((file: File) => {
           // Here you can access the real file
           console.log(droppedFile.relativePath, file);
+          this.fileName = droppedFile.relativePath;
 
           this.fileUploaded = true;
 
@@ -79,15 +81,31 @@ export class UploadVideoComponent {
     this.dialogRef.close();
   }
 
+  @Output() updateVariableEvent = new EventEmitter();
+
   uploadVideo() {
     // Upload the Video to buttton
     if (this.fileEntry !== undefined) {
       this.fileEntry.file((file) => {
-        this._videoService
-          .uploadVideo(file)
-          .subscribe((data: UploadVideoResponse) => {
-            this.router.navigateByUrl('/save-video-details/' + data.videoId);
-          });
+        this._videoService.uploadVideo(file, 'VIDEO')?.subscribe(
+          (data: UploadVideoResponse) => {
+            // this.router.navigateByUrl('/save-video-details/' + data.videoId);
+            this.updateVariableEvent.emit({
+              showDetailsView: true,
+              ...data,
+              fileName: this.fileName,
+            });
+          },
+          (error) => {
+            this.updateVariableEvent.emit({
+              showDetailsView: true,
+              fileName: this.fileName,
+              videoId: '657d2117cf3a2074a722a958',
+              videoUrl:
+                'https://firebasestorage.googleapis.com/v0/b/video-stream-app-cf76a.appspot.com/o/122dd4a4-3993-4bf3-aff1-d413b6c6145c.mp4?alt=media',
+            });
+          }
+        );
       });
     }
   }
