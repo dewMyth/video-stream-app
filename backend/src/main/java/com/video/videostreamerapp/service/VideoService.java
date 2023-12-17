@@ -30,7 +30,7 @@ public class VideoService {
         return new UploadVideoResponse(savedVideo.getId(), savedVideo.getVideoUrl());
     }
 
-    public String uploadThumbnail(MultipartFile image, String videoId) throws IOException {
+    public Video uploadThumbnail(MultipartFile image, String videoId) throws IOException {
         // Find the video by videoId
         Video savedVideo = videoRepository.findById(videoId).orElseThrow(() -> new IllegalArgumentException(
                 "Cannot find video by id - " + videoId
@@ -41,7 +41,7 @@ public class VideoService {
         savedVideo.setThumbnailUrl(thumbnailUrl);
         videoRepository.save(savedVideo);
 
-        return "Successfully uploaded the video to firebase => " + savedVideo.getThumbnailUrl();
+        return savedVideo;
     }
 
     public Video editVideo(VideoDto videoDto) {
@@ -54,7 +54,6 @@ public class VideoService {
         savedVideo.setTitle(videoDto.getTitle());
         savedVideo.setDescription(videoDto.getDescription());
         savedVideo.setTags(videoDto.getTags());
-        savedVideo.setThumbnailUrl(videoDto.getThumbnailUrl());
         savedVideo.setVideoStatus(videoDto.getVideoStatus());
 
         // Save to mongo doc

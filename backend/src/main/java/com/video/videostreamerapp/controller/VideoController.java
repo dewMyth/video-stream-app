@@ -39,7 +39,7 @@ public class VideoController {
     @PostMapping("thumbnail")
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin
-    public String uploadThumbnail(@RequestParam("file") MultipartFile file, @RequestParam String videoId) throws  IOException{
+    public Video uploadThumbnail(@RequestParam("file") MultipartFile file, @RequestParam String videoId) throws  IOException{
         System.out.println("Starting upload thumbnail....");
         return videoService.uploadThumbnail(file, videoId);
     }
