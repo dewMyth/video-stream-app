@@ -44,4 +44,12 @@ public class VideoController {
         return videoService.uploadThumbnail(file, videoId);
     }
 
+    @GetMapping("{videoId}")
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    public Video getVideoById(@PathVariable String videoId){
+        return videoService.getVideoById(videoId);
+    }
+
+
 }

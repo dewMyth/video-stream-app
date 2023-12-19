@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    padding: 20px;
+}
+
+.left{
+    flex:3
+}
+
+.right{
+    flex: 1;
+}
+
+.video-player{
+    padding: 20px;
+    margin-left: 50px;
+}

@@ -65,6 +65,14 @@
         Upload Video
       </button>
     </div>
+    <div style="width: 100%">
+      <mat-progress-bar
+        *ngIf="showProgressBar"
+        mode="determinate"
+        [value]="progressValue"
+        >{{ progressValue }}</mat-progress-bar
+      >
+    </div>
 
     <div class="policy">
       <p>

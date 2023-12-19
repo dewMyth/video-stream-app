@@ -60,4 +60,11 @@ public class VideoService {
         videoRepository.save(savedVideo);
         return savedVideo;
     }
+
+    public Video getVideoById(String videoId) {
+
+        return videoRepository.findById(videoId).orElseThrow(() -> new IllegalArgumentException(
+                "Cannot find video for id - " + videoId
+        ));
+    }
 }
